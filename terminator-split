@@ -88,22 +88,12 @@ class TerminatorSplit(object):
             self._add_terminals(parent, hosts)
             return
 
-        new_parent = self._split_horizontal(parent)
+        new_parent = self._split_vertical(parent)
         split_index = self._split_index(hosts)
 
+        # prefered all vertial splits
         if len(hosts) == 2:
             self._add_terminals(new_parent, hosts)
-
-        elif len(hosts) == 3:
-            left_parent = self._split_vertical(new_parent)
-            self._add_terminals(left_parent, hosts[:split_index])
-            self._add_terminals(new_parent, hosts[split_index:])
-
-        elif len(hosts) == 4:
-            left_parent = self._split_vertical(new_parent)
-            right_parent = self._split_vertical(new_parent)
-            self._add_terminals(left_parent, hosts[:split_index])
-            self._add_terminals(right_parent, hosts[split_index:])
         else:
             self._split_layout(new_parent, hosts[:split_index])
             self._split_layout(new_parent, hosts[split_index:])
